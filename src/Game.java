@@ -8,22 +8,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Game {
+    //basic stats
     private int pollution = 0;
     private int powerSupply = 0;
     private int powerUsage = 0;
     private int happiness = 100;
     private int population = 0;
 
+    
     private GamePanel gamePanel;
     private StatusPanel statusPanel;
     private JFrame frame;
     private Timer simulationTimer;
+    private int tickCounter = 0;
+    private EventManager eventManager;
+
 
     public Game() {
+        //panel set up
         gamePanel = new GamePanel(this);
         statusPanel = new StatusPanel(this); 
+        eventManager = new EventManager();
         frame = new JFrame("Eco Architect");
 
+        // create a wrapper to better center stuff and control where things are
         JPanel wrapper = new JPanel();
         wrapper.setLayout(new BorderLayout());
         JPanel centerWrapper = new JPanel(new GridBagLayout());
@@ -39,6 +47,7 @@ public class Game {
 
         frame.add(wrapper);
 
+        //default settings for frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         // frame.add(gamePanel);
@@ -50,19 +59,27 @@ public class Game {
         // Delay ensures focus works
         SwingUtilities.invokeLater(() -> gamePanel.requestFocusInWindow());
 
+        //start the simulation
         startSimulationLoop();
     }
 
     private void startSimulationLoop() {
-        simulationTimer = new Timer(2000, new ActionListener() {
+                                        //1 sec
+        simulationTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tickCounter++; //records seconds passed
+                
                 updateStatsFromGrid();
-                System.out.println(pollution);
-                System.out.println(powerSupply);
-                System.out.println(powerUsage);
-                System.out.println(happiness);
-                System.out.println(population);
+                updatePopulationFluctuation();
+                if (tickCounter % 10 == 0) { // Every 10 seconds
+                    eventManager.triggerRandomEvent();
+                }
+                // System.out.println(pollution);
+                // System.out.println(powerSupply);
+                // System.out.println(powerUsage);
+                // System.out.println(happiness);
+                // System.out.println(population);
                 checkGameOver();
                 gamePanel.repaint(); 
                 statusPanel.repaint();
@@ -92,7 +109,9 @@ public class Game {
         happiness = Math.max(0, Math.min(happiness, 100));
     }
 
-    
+    private void updatePopulationFluctuation(){
+
+    }
 
     private void checkGameOver() {
         if (pollution >= 100 || happiness <= 0 || powerUsage > powerSupply) {
