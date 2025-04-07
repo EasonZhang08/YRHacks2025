@@ -42,12 +42,11 @@ public class GridManager {
     }
 
     public Tile getTileAtPoint(MouseEvent e) {
-        int row = e.getX() / tileSize;
-        int col = e.getY() / tileSize;
-        System.out.println(row + " " + col);
+        int col = e.getX() / tileSize;
+        int row = e.getY() / tileSize;
 
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            return grid[row][col];
+            return grid[col][row];
         }
         return null;
     }

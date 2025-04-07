@@ -4,30 +4,32 @@ import java.awt.event.*;
 
 public class GamePanel extends JPanel implements MouseListener {
     private GridManager gridManager;
-    private String selectedType = "Building"; // Default
+    private String selectedType = "PowerSolar"; // Default
 
-    public GamePanel() {
+    public GamePanel(Game g) {
         setFocusable(true);
         gridManager = new GridManager();
         setPreferredSize(new Dimension(gridManager.getGridWidth(), gridManager.getGridHeight()));
         addMouseListener(this);
 
         // Key bindings to change selected tile type
-        bindKey("1", "Building");
-        bindKey("2", "Park");
-        bindKey("3", "PowerSolar");
-        bindKey("4", "PowerFossil");
-        bindKey("5", "Road");
+        bindKey("1", "PowerSolar", g);
+        bindKey("2", "PowerFossil", g);
+        bindKey("3", "Building", g);
+        bindKey("4", "Park", g);
+        bindKey("5", "Road", g);
     }
 
-    private void bindKey(String key, String typeName) {
+    private void bindKey(String key, String typeName, Game g) {
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(key), "select_" + typeName);
         getActionMap().put("select_" + typeName, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                selectedType = typeName;
+                setSelectedType(typeName);
+                g.getStatusPanel().repaint();
             }
         });
     }
+    
 
     @Override
     public void paintComponent(Graphics g) {
@@ -35,7 +37,7 @@ public class GamePanel extends JPanel implements MouseListener {
         gridManager.draw(g);
 
         g.setColor(Color.BLACK);
-        g.drawString("Selected: " + selectedType + " (1–5 to change)", 10, gridManager.getGridHeight() + 20);
+        
     }
 
     
@@ -60,4 +62,22 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+
+    public GridManager getGridManager() {
+        return gridManager;
+    }
+
+    public String getSelectedType() {
+        return selectedType;
+    }
+
+    public void setGridManager(GridManager gridManager) {
+        this.gridManager = gridManager;
+    }
+
+    public void setSelectedType(String selectedType) {
+        this.selectedType = selectedType;
+    }
+
+    
 }

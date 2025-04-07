@@ -4,4 +4,8 @@ public class FossilPower extends Power{
         super(row, col, "F");
     }
     
+    public void affectGame(Game game){
+        game.addPollution(20);
+        game.addPowerSupply(20);
+    }
 }

@@ -9,6 +9,8 @@ public abstract class Tile {
         this.label = label;
     }
 
+    public abstract void affectGame(Game game);
+
     public int getRow() {
         return row;
     }

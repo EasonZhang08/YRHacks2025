@@ -4,4 +4,5 @@ public class EmptyTile extends Tile{
         super(row, col, "");
     }
     
+    public void affectGame(Game game){}
 }

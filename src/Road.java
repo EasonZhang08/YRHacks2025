@@ -4,4 +4,9 @@ public class Road extends Tile{
         super(row, col, "R");
     }
     
+    public void affectGame(Game game){
+        game.addPollution(7);
+        game.addPowerUsage(5);
+        game.changeHappiness(2);
+    }
 }
