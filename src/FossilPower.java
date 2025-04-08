@@ -8,6 +8,6 @@ public class FossilPower extends Power{
     public void affectGame(Game game){
         game.addPollution(20);
         game.addPowerSupply(20);
-        game.changeMoney(-200000);
+        game.changeMoney(-100000);
     }
 }

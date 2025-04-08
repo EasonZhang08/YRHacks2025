@@ -9,8 +9,8 @@ public class TileFactory {
                 return new SolarPower(row, col);  
             case "PowerFossil":
                 return new FossilPower(row, col); 
-            case "Road":
-                return new Road(row, col);
+            case "Restaurant":
+                return new Restaurant(row, col);
             default:
                 return new EmptyTile(row, col);
         }
@@ -38,9 +38,9 @@ public class TileFactory {
                 g.addPowerSupply(-20);
                 break;
             case "R":
-                g.reducePollution(7);
+                g.reducePollution(10);
                 g.addPowerUsage(-5);
-                g.changeHappiness(-2);
+                g.changeHappiness(-10);
             default:
                 return;
         }
