@@ -178,7 +178,6 @@ public class Game {
     }
 
     private void checkGameOver() {
-        //TODO check algorithm later
         if (pollution+extraPollution >= 100 || happiness+extraHappiness <= 0 || powerUsage+powerUsage > powerSupply+powerSupply || money+extraMoney < 0 || population + extraPopulation < 0) {
             
             statusPanel.repaint();
@@ -187,14 +186,19 @@ public class Game {
             f.switchToCard("End");
             if (pollution+extraPollution >= 100){
                 f.setGameOverReason("There was too much pollution");
+                System.out.println(getPollution() + getExtraPowerSupply());
             } else if (happiness+extraHappiness <= 0){
                 f.setGameOverReason("Your citizens all became unhappy and left your city");
+                System.out.println(happiness+extraHappiness);
             } else if (powerUsage+powerUsage > powerSupply+powerSupply){
                 f.setGameOverReason("You overloaded your electrical grid");
+                System.out.println(powerUsage + powerUsage + " / " + powerSupply + powerSupply);
             } else if (money+extraMoney < 0){
                 f.setGameOverReason("You went bankrupt");
+                System.out.println(money+extraMoney);
             } else if (population + extraPopulation < 0) {
                 f.setGameOverReason("Your citizens all left your city");
+                System.out.println(population + extraPopulation);
             }
             GameEndScreen.reason.setText(f.getGameOverReason());
             System.out.println(f.getGameOverReason());
@@ -232,6 +236,13 @@ public class Game {
     public int getPopulation() { return population; }
     public int getMoney() { return money; }
 
+    public int getExtraPollution() { return extraPollution; }
+    public int getExtraPowerSupply() { return extraPowerSupply; }
+    public int getExtraPowerUsage() { return extraPowerUsage; }
+    public int getExtraHappiness() { return extraHappiness; }
+    public int getExtraPopulation() { return extraPopulation; }
+    public int getExtraMoney() { return extraMoney; }
+
     public GamePanel getGamePanel() {
         return gamePanel;
     }
@@ -266,26 +277,6 @@ public class Game {
 
     public String getEventAlert() {
         return eventAlert;
-    }
-
-    public int getExtraPowerSupply() {
-        return extraPowerSupply;
-    }
-
-    public int getExtraPowerUsage() {
-        return extraPowerUsage;
-    }
-
-    public int getExtraPollution() {
-        return extraPollution;
-    }
-
-    public int getExtraHappiness() {
-        return extraHappiness;
-    }
-
-    public int getExtraPopulation() {
-        return extraPopulation;
     }
 
     public ArrayList<Event> getPastEvents() {
