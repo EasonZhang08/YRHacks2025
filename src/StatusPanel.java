@@ -32,7 +32,7 @@ public class StatusPanel extends JPanel {
         g2.setFont(new Font("SansSerif", Font.BOLD, 16));
 
         // Pollution Bar
-        drawLabeledBar(g2, "🌫 Pollution", game.getPollution(), Color.RED, x, y, barWidth, barHeight);
+        drawLabeledBar(g2, "🌫 Pollution", (game.getPollution() + game.getExtraPowerSupply()), Color.RED, x, y, barWidth, barHeight);
         y += 70;
 
         // Power Usage Bar
