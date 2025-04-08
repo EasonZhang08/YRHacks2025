@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements MouseListener {
         bindKey("2", "PowerFossil", g);
         bindKey("3", "Building", g);
         bindKey("4", "Park", g);
-        bindKey("5", "Road", g);
+        bindKey("5", "Restaurant", g);
     }
 
     private void bindKey(String key, String typeName, Game g) {

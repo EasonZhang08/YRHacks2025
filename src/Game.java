@@ -23,8 +23,8 @@ public class Game {
     private int pollution = 0;
     private int powerSupply = 10;
     private int powerUsage = 0;
-    private int happiness = 100;
-    private int population = 100;
+    private int happiness = 50;
+    private int population = 0;
     private int money = 1000000;
 
 
@@ -33,6 +33,7 @@ public class Game {
     private int extraPollution = 0;
     private int extraHappiness = 0;
     private int extraPopulation = 0;
+    private int extraMoney = 0;
 
 
     
@@ -86,8 +87,11 @@ public class Game {
                 updateStatsFromGrid();
                 if (tickCounter % 2 == 0){ // every 2 seconds
                     updatePopulationFluctuation();
+                    updatePollution();
                 }  
-                updateMoney();             
+                if (tickCounter % 5 == 0){ // every 5 seconds
+                    updateMoney();  
+                }         
                 if (tickCounter % 10 == 0) { // Every 10 seconds
                     pastEvents.add(eventManager.triggerRandomEvent(Game.this));
                     eventAlert = pastEvents.get(pastEvents.size()-1).getAlert();
@@ -95,7 +99,12 @@ public class Game {
                 
                 gamePanel.repaint(); 
                 statusPanel.repaint();
-                checkGameOver();
+                if (checkWin()){
+                    System.out.println("win");
+                } else {
+                    checkGameOver();
+                }
+                
             }
         });
         simulationTimer.start();
@@ -106,8 +115,8 @@ public class Game {
         pollution = 0;
         powerSupply = 10;
         powerUsage = 0;
-        happiness = 100;
-        population = 100;
+        happiness = 50;
+        population = 0;
         money = 1000000;
 
         // Loop over all tiles and apply their effects
@@ -123,6 +132,7 @@ public class Game {
         powerUsage += extraPowerUsage;
         happiness += extraHappiness;
         population += extraPopulation;
+        money += extraMoney;
        
 
         // Clamp values to 0–100
@@ -132,40 +142,50 @@ public class Game {
 
     private void updatePopulationFluctuation() {
         if (happiness >= 85) {
-            extraPopulation += 10;
+            extraPopulation += 2;
             eventAlert = "📈 Population is growing rapidly!";
         } else if (happiness >= 70) {
-            extraPopulation += 5;
+            extraPopulation += 1;
             eventAlert = "📈 Population is growing.";
         } else if (happiness <= 19) {
-            extraPopulation = Math.max(extraPopulation - 10, -population); // don't go below 0 total
+            extraPopulation = Math.max(extraPopulation - 5, -population); // don't go below 0 total
             eventAlert = "📉 Population is leaving the city!";
-        } else if (happiness <= 39) {
-            extraPopulation = Math.max(extraPopulation - 5, -population);
+        } else if (happiness <= 40) {
+            extraPopulation = Math.max(extraPopulation - 3, -population);
             eventAlert = "📉 Population is slowly declining.";
         } else {
             // No change
-            eventAlert = "";
+            eventAlert = "Population remains the same.";
         }
     
         
     }
     
-    private int updateMoney(){
-        int profit = tickCounter * population * 500;
-        return money + profit;
+    private void updateMoney(){
+        changeExtraMoney(population * 500);
+    }
+
+    private void updatePollution(){
+        addExtraPollution((int)(population*0.5));
     }
 
     private void checkGameOver() {
-        if (pollution >= 100 || happiness <= 0 || powerUsage > powerSupply) {
+        //TODO check algorithm later
+        if (pollution+extraPollution >= 100 || happiness+extraHappiness <= 0 || powerUsage+powerUsage > powerSupply+powerSupply || money+extraMoney < 0 || population + extraPopulation < 0) {
+            
+            statusPanel.repaint();
             simulationTimer.stop();
             System.out.println("Game over");
+            
+
             ///JOptionPane.showMessageDialog(frame, "Game Over!");
         }
     }
 
 
-
+    private boolean checkWin(){
+        return population >= 500;
+    }
 
 
 
@@ -183,6 +203,7 @@ public class Game {
     public void addExtraPowerUsage(int amount) { extraPowerUsage += amount; }
     public void changeExtraHappiness(int delta) { extraHappiness += delta; }
     public void addExtraPopulation(int amount) { extraPopulation += amount; }
+    public void changeExtraMoney(int amount) { extraMoney += amount; }
 
     public int getPollution() { return pollution; }
     public int getPowerSupply() { return powerSupply; }

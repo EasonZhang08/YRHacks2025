@@ -39,23 +39,25 @@ public class StatusPanel extends JPanel {
         int usage = game.getPowerUsage();
         int supply = game.getPowerSupply();
         int powerPercent = supply == 0 ? 0 : (int) (100.0 * usage / Math.max(1, supply));
+        powerPercent = Math.min(100, powerPercent);
         drawLabeledBar(g2, "⚡ Power Usage", powerPercent, Color.ORANGE, x, y, barWidth, barHeight);
         g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
         g2.drawString(usage + " / " + supply, x + barWidth + 10, y + barHeight - 3);
         y += 70;
 
         // Happiness Bar
-        drawLabeledBar(g2, "😊 Happiness", game.getHappiness(), Color.GREEN.darker(), x, y, barWidth, barHeight);
+        int happiness = Math.max(game.getHappiness(), 0);
+        drawLabeledBar(g2, "😊 Happiness", happiness, Color.GREEN.darker(), x, y, barWidth, barHeight);
         y += 70;
 
         // Population Text
         g2.setFont(new Font("SansSerif", Font.BOLD, 16));
         g2.setColor(Color.DARK_GRAY);
-        g2.drawString("👨‍👩‍👧‍👦 Population: " + game.getPopulation(), x, y);
+        g2.drawString("👨‍👩‍👧‍👦 Population: " + Math.max(game.getPopulation(), 0), x, y);
         y += 70;
 
         // Money Text
-        g2.drawString("💵 Money: " + game.getMoney(), x, y);
+        g2.drawString("💵 Money: " + Math.max(game.getMoney(), 0), x, y);
         y += 70;
 
         // //event alert
