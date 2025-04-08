@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.Color;
 
 public class Menu extends javax.swing.JPanel{
@@ -14,6 +15,10 @@ public class Menu extends javax.swing.JPanel{
     public Menu() {
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
+
+        this.setLayout(new GridBagLayout());
+
+
         //Title
 
         JLabel title = new JLabel("Sim-City");
