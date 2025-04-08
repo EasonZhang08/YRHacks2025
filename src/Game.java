@@ -45,14 +45,16 @@ public class Game {
     private ArrayList<Event> pastEvents;
     private String eventAlert;
     private JPanel wrapper;
+    private Frame f;
     
 
 
-    public Game() {
+    public Game(Frame f) {
         //panel set up
         gamePanel = new GamePanel(this);
         statusPanel = new StatusPanel(this); 
         eventManager = new EventManager();
+        this.f = f;
         pastEvents = new ArrayList<Event>();
         eventAlert = "";
        
@@ -182,8 +184,20 @@ public class Game {
             statusPanel.repaint();
             simulationTimer.stop();
             System.out.println("Game over");
-            
-
+            f.switchToCard("End");
+            if (pollution+extraPollution >= 100){
+                f.setGameOverReason("There was too much pollution");
+            } else if (happiness+extraHappiness <= 0){
+                f.setGameOverReason("Your citizens all became unhappy and left your city");
+            } else if (powerUsage+powerUsage > powerSupply+powerSupply){
+                f.setGameOverReason("You overloaded your electrical grid");
+            } else if (money+extraMoney < 0){
+                f.setGameOverReason("You went bankrupt");
+            } else if (population + extraPopulation < 0) {
+                f.setGameOverReason("Your citizens all left your city");
+            }
+            GameEndScreen.reason.setText(f.getGameOverReason());
+            System.out.println(f.getGameOverReason());
             ///JOptionPane.showMessageDialog(frame, "Game Over!");
         }
     }

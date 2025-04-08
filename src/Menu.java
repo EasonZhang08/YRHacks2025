@@ -18,7 +18,7 @@ import java.awt.Color;
 public class Menu extends javax.swing.JPanel{
     public static final String CARD_NAME = "Start";
 
-    public Menu() {
+    public Menu(Frame f) {
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
         // setBackground(Game.TEA_ROSE);
@@ -54,7 +54,7 @@ public class Menu extends javax.swing.JPanel{
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // start the game
-                Frame.switchToCard("Game");
+                f.switchToCard("Game");
             }
         });
 
