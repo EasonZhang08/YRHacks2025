@@ -8,11 +8,11 @@ public class SolarBoostEvent extends Event{
     public void affectGame(Game game) {
         
         //increase power supply
-        game.addPowerSupply(10);
+        game.addExtraPowerSupply(10);
 
 
         //decrease happiness
-        game.changeHappiness(-2);
+        game.changeExtraHappiness(-2);
     }
     
 }

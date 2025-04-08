@@ -7,7 +7,7 @@ public class ProtestEvent extends Event{
     
     public void affectGame(Game game) {
         //decrease happiness
-        game.changeHappiness(-20);
+        game.changeExtraHappiness(-20);
     }
     
 }

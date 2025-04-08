@@ -7,16 +7,16 @@ public class EarthquakeEvent extends Event{
     
     public void affectGame(Game game) {
         //destory random buildings 
-        int randRow = (int)(Math.random() * 80);
-        int randCol = (int)(Math.random() * 80);
+        int randRow = (int)(Math.random() * 8);
+        int randCol = (int)(Math.random() * 8);
         TileFactory.removeTile(randRow, randCol, game);
         
         //decrease population
-        game.addPopulation(-20);
+        game.addExtraPopulation(-20);
 
 
         //decrease happiness
-        game.changeHappiness(-10);
+        game.changeExtraHappiness(-10);
     }
     
 }

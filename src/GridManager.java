@@ -27,14 +27,15 @@ public class GridManager {
                 int y = j * tileSize;
 
                 
-                g.setColor(Color.LIGHT_GRAY);
-                g.fillRect(x, y, tileSize, tileSize);
-                g.setColor(Color.DARK_GRAY);
-                g.drawRect(x, y, tileSize, tileSize);
+                g.drawImage(SpriteLoader.load("grass"), x, y, tileSize, tileSize, null);
+                //g.fillRect(x, y, tileSize, tileSize);
+                // g.setColor(Color.DARK_GRAY);
+                // g.drawRect(x, y, tileSize, tileSize);
 
                 if (tile != null){
-                    g.setColor(Color.BLACK);
-                    g.drawString(tile.getLabel(), x + tileSize / 2 - 5, y + tileSize / 2 + 5);           
+                    tile.draw(g, x, y, tileSize);
+                    //g.setColor(Color.BLACK);
+                    //g.drawString(tile.getLabel(), x + tileSize / 2 - 5, y + tileSize / 2 + 5);           
                 }
             }
         }

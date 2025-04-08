@@ -6,14 +6,30 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Game {
+
+    final static Color TEA_ROSE = new Color(229, 194, 192);
+    final static Color CELADON = new Color(143, 213, 166);
+    final static Color SHAMROCK_GREEN = new Color(50, 159, 91);
+    final static Color SEA_GREEN = new Color(12, 131, 70);
+    final static Color CARRIBEAN_CURRENT = new Color(13, 93, 86);
+
     //basic stats
     private int pollution = 0;
-    private int powerSupply = 0;
+    private int powerSupply = 10;
     private int powerUsage = 0;
     private int happiness = 100;
-    private int population = 0;
+    private int population = 100;
+
+
+    private int extraPowerSupply = 0;
+    private int extraPowerUsage = 0;
+    private int extraPollution = 0;
+    private int extraHappiness = 0;
+    private int extraPopulation = 0;
+
 
     
     private GamePanel gamePanel;
@@ -22,6 +38,8 @@ public class Game {
     private Timer simulationTimer;
     private int tickCounter = 0;
     private EventManager eventManager;
+    private ArrayList<Event> pastEvents;
+    private String eventAlert;
 
 
     public Game() {
@@ -29,13 +47,15 @@ public class Game {
         gamePanel = new GamePanel(this);
         statusPanel = new StatusPanel(this); 
         eventManager = new EventManager();
+        pastEvents = new ArrayList<Event>();
+        eventAlert = "";
         frame = new JFrame("Eco Architect");
 
         // create a wrapper to better center stuff and control where things are
         JPanel wrapper = new JPanel();
         wrapper.setLayout(new BorderLayout());
         JPanel centerWrapper = new JPanel(new GridBagLayout());
-        centerWrapper.setBackground(Color.gray); 
+        centerWrapper.setBackground(SHAMROCK_GREEN); 
         centerWrapper.setPreferredSize(new Dimension(700, 850));
         centerWrapper.add(gamePanel); // Centered in the GridBagLayout
         wrapper.add(centerWrapper, BorderLayout.CENTER);
@@ -73,16 +93,13 @@ public class Game {
                 updateStatsFromGrid();
                 updatePopulationFluctuation();
                 if (tickCounter % 10 == 0) { // Every 10 seconds
-                    eventManager.triggerRandomEvent();
+                    pastEvents.add(eventManager.triggerRandomEvent(Game.this));
+                    eventAlert = pastEvents.getLast().getAlert();
                 }
-                // System.out.println(pollution);
-                // System.out.println(powerSupply);
-                // System.out.println(powerUsage);
-                // System.out.println(happiness);
-                // System.out.println(population);
-                checkGameOver();
+                
                 gamePanel.repaint(); 
                 statusPanel.repaint();
+                checkGameOver();
             }
         });
         simulationTimer.start();
@@ -91,10 +108,10 @@ public class Game {
     private void updateStatsFromGrid() {
         // Reset all stats
         pollution = 0;
-        powerSupply = 0;
+        powerSupply = 10;
         powerUsage = 0;
         happiness = 100;
-        population = 0;
+        population = 100;
 
         // Loop over all tiles and apply their effects
         Tile[][] grid = gamePanel.getGridManager().getGrid();
@@ -103,6 +120,13 @@ public class Game {
                 tile.affectGame(this);
             }
         }
+        
+        pollution += extraPollution;
+        powerSupply += extraPowerSupply;
+        powerUsage += extraPowerUsage;
+        happiness += extraHappiness;
+        population += extraPopulation;
+       
 
         // Clamp values to 0–100
         pollution = Math.min(pollution, 100);
@@ -132,6 +156,12 @@ public class Game {
     public void addPowerUsage(int amount) { powerUsage += amount; }
     public void changeHappiness(int delta) { happiness += delta; }
     public void addPopulation(int amount) { population += amount; }
+
+    public void addExtraPollution(int amount) { extraPollution += amount; }
+    public void addExtraPowerSupply(int amount) { extraPowerSupply += amount; }
+    public void addExtraPowerUsage(int amount) { extraPowerUsage += amount; }
+    public void changeExtraHappiness(int delta) { extraHappiness += delta; }
+    public void addExtraPopulation(int amount) { extraPopulation += amount; }
 
     public int getPollution() { return pollution; }
     public int getPowerSupply() { return powerSupply; }
@@ -169,6 +199,18 @@ public class Game {
 
     public void setSimulationTimer(Timer simulationTimer) {
         this.simulationTimer = simulationTimer;
+    }
+
+    public int getTickCounter() {
+        return tickCounter;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public String getEventAlert() {
+        return eventAlert;
     }
 
     

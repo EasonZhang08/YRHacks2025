@@ -8,11 +8,11 @@ public class HeatwaveEvent extends Event{
     public void affectGame(Game game) {
         
         //increase pollution
-        game.addPollution(10);
+        game.addExtraPollution(10);
 
 
         //decrease happiness
-        game.changeHappiness(-5);
+        game.changeExtraHappiness(-5);
     }
     
 }
