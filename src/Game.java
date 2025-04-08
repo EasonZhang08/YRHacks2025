@@ -176,8 +176,8 @@ public class Game {
             statusPanel.repaint();
             simulationTimer.stop();
             System.out.println("Game over");
-            
-
+            Frame.switchToCard("End");
+    
             ///JOptionPane.showMessageDialog(frame, "Game Over!");
         }
     }

@@ -19,45 +19,15 @@ public class GameEndScreen extends javax.swing.JPanel{
         title.setForeground(Color.BLACK); // Optional: text color
         add(title);
         
+        JLabel status;
         if (true){//if you lose
-            JLabel status = new JLabel("Game Over!");
-        } else{
-            JLabel status = new JLabel("You Win!");   
+            status = new JLabel("Game Over!");
+        } else {
+            status = new JLabel("You Win!");
         }
         status.setFont(new Font("Arial", Font.BOLD, 48));
         status.setForeground(Color.BLACK); // Optional: text color
         add(status);
-
-        //add a button for start
-        JButton startButton = new JButton("Start"); 
-        add(startButton);
-
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // start the game
-                Frame.switchToCard("Game");
-            }
-        });
-
-        startButton.setPreferredSize(new Dimension(400, 100)); // Set size
-        startButton.setFont(new Font("Arial", Font.BOLD, 25)); // Set font
-        startButton.setBackground(Color.BLACK); // Set background color
-
-        //add button for instruction
-
-        JButton instructionButton = new JButton("Instructions"); 
-        add(instructionButton);
-
-        instructionButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // change to the instructions panel
-                System.out.println("Button clicked!");
-            }
-        });
-
-        instructionButton.setPreferredSize(new Dimension(400, 100)); // Set size
-        instructionButton.setFont(new Font("Arial", Font.BOLD, 25)); // Set font
-        instructionButton.setBackground(Color.BLACK); // Set background color
     }
     
 }

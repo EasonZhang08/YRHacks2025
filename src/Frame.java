@@ -1,6 +1,5 @@
 import java.awt.CardLayout;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 
 public class Frame extends javax.swing.JFrame{
@@ -8,12 +7,14 @@ public class Frame extends javax.swing.JFrame{
     private static javax.swing.JPanel cardPanel;
     private Game g;
     private Menu start;
+    private GameEndScreen end;
 
     public Frame(){
         //frame = new JFrame("Eco Architect");
 
         g = new Game();
         start = new Menu();
+        end = new GameEndScreen();
 
         //default settings for frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,6 +42,7 @@ public class Frame extends javax.swing.JFrame{
     private void addPanels() {
         cardPanel.add(g.getWrapper(), Game.CARD_NAME);
         cardPanel.add(start, Menu.CARD_NAME);
+        cardPanel.add(end, GameEndScreen.CARD_NAME);
     }
 
     public static void switchToCard(String cardName) {
