@@ -83,6 +83,8 @@ public class StatusPanel extends JPanel {
 
         //selection
         g2.drawString("Selected: " + game.getGamePanel().getSelectedType() + " (1–5 to change)", x, y);
+    
+        //game.getGamePanel().getSelectedType()
     }
 
     private void drawLabeledBar(Graphics2D g2, String label, int value, Color color, int x, int y, int width, int height) {

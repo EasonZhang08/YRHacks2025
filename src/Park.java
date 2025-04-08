@@ -9,6 +9,6 @@ public class Park extends Tile{
         game.changeHappiness(3);
         game.addPowerUsage(2);
         game.reducePollution(10);
-        game.changeMoney(-50000);
+        game.changeMoney(-20000);
     }
 }

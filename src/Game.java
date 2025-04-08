@@ -211,7 +211,7 @@ public class Game {
 
 
     private boolean checkWin(){
-        return population >= 500;
+        return population >= 150;
     }
 
 
