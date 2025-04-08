@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StatusPanel extends JPanel {
     private Game game;
@@ -53,12 +54,26 @@ public class StatusPanel extends JPanel {
         g2.drawString("👨‍👩‍👧‍👦 Population: " + game.getPopulation(), x, y);
         y += 70;
 
-        //event alert
-        g2.drawString("Event: " + game.getEventAlert(), x, y);
+        // //event alert
+        // g2.drawString("Event: " + game.getEventAlert(), x, y);
+        // y += 70;
+
+        g.drawString("🔔 Event:", x, y);
+        y += 18;
+
+        ArrayList<String> lines = wrapText(g, game.getEventAlert(), 200);
+        for (String line : lines) {
+            g.drawString(line, x, y);
+            y += 18;
+        }
+        y += 50;
+
+        //ticks
+        g2.drawString("Time Past: " + game.getTickCounter(), x, y);
         y += 70;
 
         //selection
-        g2.drawString("Selected: " + game.getGamePanel().getSelectedType() + " (1–5 to change)", 10, y);
+        g2.drawString("Selected: " + game.getGamePanel().getSelectedType() + " (1–5 to change)", x, y);
     }
 
     private void drawLabeledBar(Graphics2D g2, String label, int value, Color color, int x, int y, int width, int height) {
@@ -79,4 +94,23 @@ public class StatusPanel extends JPanel {
         g2.setColor(Color.GRAY);
         g2.drawRoundRect(x, y, width, height, 10, 10);
     }
+
+
+    private ArrayList<String> wrapText(Graphics g, String text, int maxWidth) {
+        FontMetrics fm = g.getFontMetrics();
+        ArrayList<String> lines = new ArrayList<>();
+        StringBuilder line = new StringBuilder();
+    
+        for (String word : text.split(" ")) {
+            if (fm.stringWidth(line + word) > maxWidth) {
+                lines.add(line.toString());
+                line = new StringBuilder(word + " ");
+            } else {
+                line.append(word).append(" ");
+            }
+        }
+        lines.add(line.toString());
+        return lines;
+    }
+    
 }

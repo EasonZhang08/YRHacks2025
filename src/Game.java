@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -15,6 +16,8 @@ public class Game {
     final static Color SHAMROCK_GREEN = new Color(50, 159, 91);
     final static Color SEA_GREEN = new Color(12, 131, 70);
     final static Color CARRIBEAN_CURRENT = new Color(13, 93, 86);
+
+    public static final String CARD_NAME = "Game";
 
     //basic stats
     private int pollution = 0;
@@ -34,12 +37,13 @@ public class Game {
     
     private GamePanel gamePanel;
     private StatusPanel statusPanel;
-    private JFrame frame;
     private Timer simulationTimer;
     private int tickCounter = 0;
     private EventManager eventManager;
     private ArrayList<Event> pastEvents;
     private String eventAlert;
+    private JPanel wrapper;
+    
 
 
     public Game() {
@@ -49,10 +53,10 @@ public class Game {
         eventManager = new EventManager();
         pastEvents = new ArrayList<Event>();
         eventAlert = "";
-        frame = new JFrame("Eco Architect");
+       
 
         // create a wrapper to better center stuff and control where things are
-        JPanel wrapper = new JPanel();
+        wrapper = new JPanel();
         wrapper.setLayout(new BorderLayout());
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.setBackground(SHAMROCK_GREEN); 
@@ -62,19 +66,7 @@ public class Game {
         JPanel eastWrapper = new JPanel(new BorderLayout());
         eastWrapper.setPreferredSize(new Dimension(350, 850));
         eastWrapper.add(statusPanel, BorderLayout.CENTER);
-        wrapper.add(eastWrapper, BorderLayout.EAST);
-        
-
-        frame.add(wrapper);
-
-        //default settings for frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        // frame.add(gamePanel);
-        // frame.add(statusPanel);
-        frame.setSize(new Dimension(1200, 850));
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        wrapper.add(eastWrapper, BorderLayout.EAST);       
 
         // Delay ensures focus works
         SwingUtilities.invokeLater(() -> gamePanel.requestFocusInWindow());
@@ -91,7 +83,9 @@ public class Game {
                 tickCounter++; //records seconds passed
                 
                 updateStatsFromGrid();
-                updatePopulationFluctuation();
+                if (tickCounter % 2 == 0){ // every 2 seconds
+                    updatePopulationFluctuation();
+                }               
                 if (tickCounter % 10 == 0) { // Every 10 seconds
                     pastEvents.add(eventManager.triggerRandomEvent(Game.this));
                     eventAlert = pastEvents.getLast().getAlert();
@@ -133,14 +127,33 @@ public class Game {
         happiness = Math.max(0, Math.min(happiness, 100));
     }
 
-    private void updatePopulationFluctuation(){
-
+    private void updatePopulationFluctuation() {
+        if (happiness >= 85) {
+            extraPopulation += 10;
+            eventAlert = "📈 Population is growing rapidly!";
+        } else if (happiness >= 70) {
+            extraPopulation += 5;
+            eventAlert = "📈 Population is growing.";
+        } else if (happiness <= 19) {
+            extraPopulation = Math.max(extraPopulation - 10, -population); // don't go below 0 total
+            eventAlert = "📉 Population is leaving the city!";
+        } else if (happiness <= 39) {
+            extraPopulation = Math.max(extraPopulation - 5, -population);
+            eventAlert = "📉 Population is slowly declining.";
+        } else {
+            // No change
+            eventAlert = "";
+        }
+    
+        
     }
+    
 
     private void checkGameOver() {
         if (pollution >= 100 || happiness <= 0 || powerUsage > powerSupply) {
             simulationTimer.stop();
-            JOptionPane.showMessageDialog(frame, "Game Over!");
+            System.out.println("Game over");
+            ///JOptionPane.showMessageDialog(frame, "Game Over!");
         }
     }
 
@@ -185,14 +198,6 @@ public class Game {
         this.statusPanel = statusPanel;
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
-
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
-
     public Timer getSimulationTimer() {
         return simulationTimer;
     }
@@ -213,5 +218,34 @@ public class Game {
         return eventAlert;
     }
 
+    public int getExtraPowerSupply() {
+        return extraPowerSupply;
+    }
+
+    public int getExtraPowerUsage() {
+        return extraPowerUsage;
+    }
+
+    public int getExtraPollution() {
+        return extraPollution;
+    }
+
+    public int getExtraHappiness() {
+        return extraHappiness;
+    }
+
+    public int getExtraPopulation() {
+        return extraPopulation;
+    }
+
+    public ArrayList<Event> getPastEvents() {
+        return pastEvents;
+    }
+
+    public JPanel getWrapper() {
+        return wrapper;
+    }
+
+    
     
 }
