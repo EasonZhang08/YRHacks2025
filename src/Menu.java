@@ -1,19 +1,14 @@
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Menu extends javax.swing.JPanel{
     public static final String CARD_NAME = "Start";
@@ -40,7 +35,9 @@ public class Menu extends javax.swing.JPanel{
 
         JLabel title = new JLabel("Eco Architect");
         title.setFont(new Font("Arial", Font.BOLD, 70));
-        title.setForeground(Color.BLACK); // Optional: text color
+        title.setForeground(Game.SHAMROCK_GREEN); // Optional: text color
+        title.setBackground(Color.WHITE);
+        title.setOpaque(true);
         gbc.gridy = 0;
         add(title, gbc);
         
@@ -92,10 +89,10 @@ public class Menu extends javax.swing.JPanel{
     private void styleButton(JButton button) {
         button.setPreferredSize(new Dimension(400, 80));
         button.setFont(new Font("Arial", Font.BOLD, 24));
-        button.setBackground(new Color(50, 159, 91)); // SHAMROCK_GREEN
-        button.setForeground(Color.WHITE);
+        //button.setBackground(Game.SHAMROCK_GREEN); // SHAMROCK_GREEN
+        button.setForeground(Game.SHAMROCK_GREEN);
         button.setFocusPainted(false);
-        button.setBorderPainted(false);
+        button.setBorderPainted(true);
     }
     
 }

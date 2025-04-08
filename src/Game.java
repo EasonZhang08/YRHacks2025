@@ -166,7 +166,7 @@ public class Game {
     
     private void updateHappiness(){
         if (population + extraPopulation > 0)
-        changeExtraHappiness((int)(Math.random()*10 - 50));
+        changeExtraHappiness((int)(Math.random()*10 - 5));
     }
 
     private void updateMoney(){
@@ -190,6 +190,8 @@ public class Game {
             } else if (happiness+extraHappiness <= 0){
                 f.setGameOverReason("Your citizens all became unhappy and left your city");
                 System.out.println(happiness+extraHappiness);
+                System.out.println(happiness);
+                System.out.println(extraHappiness);
             } else if (powerUsage+powerUsage > powerSupply+powerSupply){
                 f.setGameOverReason("You overloaded your electrical grid");
                 System.out.println(powerUsage + powerUsage + " / " + powerSupply + powerSupply);
