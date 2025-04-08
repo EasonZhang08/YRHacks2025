@@ -90,7 +90,7 @@ public class Game {
                 updateMoney();             
                 if (tickCounter % 10 == 0) { // Every 10 seconds
                     pastEvents.add(eventManager.triggerRandomEvent(Game.this));
-                    eventAlert = pastEvents.getLast().getAlert();
+                    eventAlert = pastEvents.get(pastEvents.size()-1).getAlert();
                 }
                 
                 gamePanel.repaint(); 
