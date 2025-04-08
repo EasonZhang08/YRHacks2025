@@ -28,10 +28,12 @@ public class Frame extends javax.swing.JFrame{
         add(cardPanel);
 
         g = new Game();
-        addPanels();  // adds wrapper
-        switchToCard(g.CARD_NAME);
 
-       
+        addPanels();  // adds wrapper
+        System.out.println(cardPanel);
+        addPanels();  // adds wrapper
+        System.out.println(cardPanel);
+        switchToCard(g.CARD_NAME);
     }
 
     private void addPanels() {
