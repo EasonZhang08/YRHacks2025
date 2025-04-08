@@ -1,17 +1,15 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Menu extends javax.swing.JPanel{
     public static final String CARD_NAME = "Start";
 
-    public Menu() {
+    public Menu(Frame f) {
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
         //Title
@@ -28,7 +26,7 @@ public class Menu extends javax.swing.JPanel{
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // start the game
-                Frame.switchToCard("Game");
+                f.switchToCard("Game");
             }
         });
 
