@@ -4,14 +4,16 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 public class Frame extends javax.swing.JFrame{
-    private CardLayout cl;
-    private javax.swing.JPanel cardPanel;
+    private static CardLayout cl;
+    private static javax.swing.JPanel cardPanel;
     private Game g;
+    private Menu start;
 
     public Frame(){
         //frame = new JFrame("Eco Architect");
 
         g = new Game();
+        start = new Menu();
 
         //default settings for frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,14 +35,17 @@ public class Frame extends javax.swing.JFrame{
         System.out.println(cardPanel);
         addPanels();  // adds wrapper
         System.out.println(cardPanel);
-        switchToCard(g.CARD_NAME);
+        switchToCard(start.CARD_NAME);
     }
 
     private void addPanels() {
         cardPanel.add(g.getWrapper(), Game.CARD_NAME);
+        cardPanel.add(start, Menu.CARD_NAME);
     }
 
-    public void switchToCard(String cardName) {
+    public static void switchToCard(String cardName) {
         cl.show(cardPanel, cardName);       
     }
+
+    
 }
