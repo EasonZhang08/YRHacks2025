@@ -1,4 +1,5 @@
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Color;
 
@@ -18,7 +21,8 @@ public class Menu extends javax.swing.JPanel{
     public Menu() {
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
-        setBackground(Game.TEA_ROSE);
+        // setBackground(Game.TEA_ROSE);
+        
 
         setLayout(new GridBagLayout());
         
@@ -34,8 +38,8 @@ public class Menu extends javax.swing.JPanel{
 
         //Title
 
-        JLabel title = new JLabel("Sim-City");
-        title.setFont(new Font("Arial", Font.BOLD, 48));
+        JLabel title = new JLabel("Eco Architect");
+        title.setFont(new Font("Arial", Font.BOLD, 70));
         title.setForeground(Color.BLACK); // Optional: text color
         gbc.gridy = 0;
         add(title, gbc);
@@ -75,6 +79,14 @@ public class Menu extends javax.swing.JPanel{
         instructionButton.setPreferredSize(new Dimension(400, 100)); // Set size
         instructionButton.setFont(new Font("Arial", Font.BOLD, 25)); // Set font
         instructionButton.setBackground(Color.BLACK); // Set background color
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Draw the background image, scaled to fit
+        //g.fillRect(0, 0, 1200, 850);
+        g.drawImage(SpriteLoader.load("menu"), 0, 0, 1200, 850, null);
     }
 
     private void styleButton(JButton button) {

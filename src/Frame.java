@@ -12,7 +12,7 @@ public class Frame extends javax.swing.JFrame{
     public Frame(){
         //frame = new JFrame("Eco Architect");
 
-        g = new Game();
+
         start = new Menu();
 
         //default settings for frame
