@@ -8,5 +8,6 @@ public class SolarPower extends Power{
     public void affectGame(Game game){
         game.addPollution(2);
         game.addPowerSupply(10);
+        game.changeMoney(-100000);
     }
 }

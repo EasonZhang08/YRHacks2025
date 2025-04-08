@@ -9,6 +9,7 @@ public class Building extends Tile{
         game.addPollution(10);
         game.addPopulation(10);
         game.addPowerUsage(5);
+        game.changeMoney(-100000);
     }
     
 }

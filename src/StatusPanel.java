@@ -54,6 +54,10 @@ public class StatusPanel extends JPanel {
         g2.drawString("👨‍👩‍👧‍👦 Population: " + game.getPopulation(), x, y);
         y += 70;
 
+        // Money Text
+        g2.drawString("💵 Money: " + game.getMoney(), x, y);
+        y += 70;
+
         // //event alert
         // g2.drawString("Event: " + game.getEventAlert(), x, y);
         // y += 70;

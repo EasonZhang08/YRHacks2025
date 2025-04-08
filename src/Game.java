@@ -25,6 +25,7 @@ public class Game {
     private int powerUsage = 0;
     private int happiness = 100;
     private int population = 100;
+    private int money = 1000000;
 
 
     private int extraPowerSupply = 0;
@@ -85,7 +86,8 @@ public class Game {
                 updateStatsFromGrid();
                 if (tickCounter % 2 == 0){ // every 2 seconds
                     updatePopulationFluctuation();
-                }               
+                }  
+                updateMoney();             
                 if (tickCounter % 10 == 0) { // Every 10 seconds
                     pastEvents.add(eventManager.triggerRandomEvent(Game.this));
                     eventAlert = pastEvents.getLast().getAlert();
@@ -106,6 +108,7 @@ public class Game {
         powerUsage = 0;
         happiness = 100;
         population = 100;
+        money = 1000000;
 
         // Loop over all tiles and apply their effects
         Tile[][] grid = gamePanel.getGridManager().getGrid();
@@ -148,6 +151,10 @@ public class Game {
         
     }
     
+    private int updateMoney(){
+        int profit = tickCounter * population * 500;
+        return money + profit;
+    }
 
     private void checkGameOver() {
         if (pollution >= 100 || happiness <= 0 || powerUsage > powerSupply) {
@@ -169,6 +176,7 @@ public class Game {
     public void addPowerUsage(int amount) { powerUsage += amount; }
     public void changeHappiness(int delta) { happiness += delta; }
     public void addPopulation(int amount) { population += amount; }
+    public void changeMoney(int delta) { money += delta; }
 
     public void addExtraPollution(int amount) { extraPollution += amount; }
     public void addExtraPowerSupply(int amount) { extraPowerSupply += amount; }
@@ -181,6 +189,7 @@ public class Game {
     public int getPowerUsage() { return powerUsage; }
     public int getHappiness() { return happiness; }
     public int getPopulation() { return population; }
+    public int getMoney() { return money; }
 
     public GamePanel getGamePanel() {
         return gamePanel;
