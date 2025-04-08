@@ -1,3 +1,4 @@
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -6,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Color;
 
 public class Menu extends javax.swing.JPanel{
@@ -16,7 +19,16 @@ public class Menu extends javax.swing.JPanel{
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
 
-        this.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 0, 20, 0); // top, left, bottom, right
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        // JPanel contentPanel = new JPanel();
+        // contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        // contentPanel.setOpaque(false); // let outer background show
 
 
         //Title
@@ -24,11 +36,15 @@ public class Menu extends javax.swing.JPanel{
         JLabel title = new JLabel("Sim-City");
         title.setFont(new Font("Arial", Font.BOLD, 48));
         title.setForeground(Color.BLACK); // Optional: text color
-        add(title);
+        gbc.gridy = 0;
+        add(title, gbc);
+        
 
         //add a button for start
         JButton startButton = new JButton("Start"); 
-        add(startButton);
+        styleButton(startButton);
+        gbc.gridy = 1;
+        add(startButton, gbc);
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +60,9 @@ public class Menu extends javax.swing.JPanel{
         //add button for instruction
 
         JButton instructionButton = new JButton("Instructions"); 
-        add(instructionButton);
+        styleButton(instructionButton);
+        gbc.gridy = 2;
+        add(instructionButton, gbc);
 
         instructionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +74,15 @@ public class Menu extends javax.swing.JPanel{
         instructionButton.setPreferredSize(new Dimension(400, 100)); // Set size
         instructionButton.setFont(new Font("Arial", Font.BOLD, 25)); // Set font
         instructionButton.setBackground(Color.BLACK); // Set background color
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(400, 80));
+        button.setFont(new Font("Arial", Font.BOLD, 24));
+        button.setBackground(new Color(50, 159, 91)); // SHAMROCK_GREEN
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
     }
     
 }
