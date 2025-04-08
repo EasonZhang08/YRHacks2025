@@ -18,6 +18,7 @@ public class Menu extends javax.swing.JPanel{
     public Menu() {
         setFocusable(true);
         setPreferredSize(new Dimension(1200, 850));
+        setBackground(Game.TEA_ROSE);
 
         setLayout(new GridBagLayout());
         
