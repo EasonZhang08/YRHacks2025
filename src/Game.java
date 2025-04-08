@@ -85,6 +85,7 @@ public class Game {
                 tickCounter++; //records seconds passed
                 
                 updateStatsFromGrid();
+                updateHappiness();
                 if (tickCounter % 2 == 0){ // every 2 seconds
                     updatePopulationFluctuation();
                     updatePollution();
@@ -161,6 +162,11 @@ public class Game {
         
     }
     
+    private void updateHappiness(){
+        if (population + extraPopulation > 0)
+        changeExtraHappiness((int)(Math.random()*10 - 50));
+    }
+
     private void updateMoney(){
         changeExtraMoney(population * 500);
     }
