@@ -8,7 +8,7 @@ public class Park extends Tile{
     public void affectGame(Game game){
         game.changeHappiness(3);
         game.addPowerUsage(2);
-        game.reducePollution(5);
-        game.changeMoney(-10000);
+        game.reducePollution(10);
+        game.changeMoney(-50000);
     }
 }

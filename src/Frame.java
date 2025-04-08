@@ -7,8 +7,10 @@ public class Frame extends javax.swing.JFrame{
     private javax.swing.JPanel cardPanel;
     private Game g;
     private Menu start;
+    private InstructionScreen instruction;
     private GameEndScreen end;
     private String gameOverReason = "";
+    private boolean isLost = false;
 
     public Frame(){
         //frame = new JFrame("Eco Architect");
@@ -16,6 +18,7 @@ public class Frame extends javax.swing.JFrame{
         g = new Game(this);
         start = new Menu(this);
         end = new GameEndScreen(this);
+        instruction = new InstructionScreen(this);
 
         //default settings for frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -44,6 +47,7 @@ public class Frame extends javax.swing.JFrame{
         cardPanel.add(g.getWrapper(), Game.CARD_NAME);
         cardPanel.add(start, Menu.CARD_NAME);
         cardPanel.add(end, GameEndScreen.CARD_NAME);
+        cardPanel.add(instruction, InstructionScreen.CARD_NAME);
     }
 
     public void switchToCard(String cardName) {
@@ -98,6 +102,12 @@ public class Frame extends javax.swing.JFrame{
         this.gameOverReason = gameOverReason;
     }
 
-    
+    public void setLost(){
+        isLost = true;
+    }
+
+    public boolean getIsLost(){
+        return isLost;
+    }
     
 }

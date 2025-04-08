@@ -9,6 +9,6 @@ public class Restaurant extends Tile{
         game.addPollution(10);
         game.addPowerUsage(5);
         game.changeHappiness(10);
-        game.changeMoney(-10000);
+        game.changeMoney(-100000);
     }
 }

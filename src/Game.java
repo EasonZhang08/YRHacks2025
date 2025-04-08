@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class Game {
 
-    final static Color TEA_ROSE = new Color(229, 194, 192);
-    final static Color CELADON = new Color(143, 213, 166);
-    final static Color SHAMROCK_GREEN = new Color(50, 159, 91);
-    final static Color SEA_GREEN = new Color(12, 131, 70);
-    final static Color CARRIBEAN_CURRENT = new Color(13, 93, 86);
+    // final static Color TEA_ROSE = new Color(229, 194, 192);
+    final static Color CELADON = new Color(125, 154, 121);
+    final static Color SHAMROCK_GREEN = new Color(62, 103, 93);
+    // final static Color SEA_GREEN = new Color(12, 131, 70);
+    // final static Color CARRIBEAN_CURRENT = new Color(13, 93, 86);
 
     public static final String CARD_NAME = "Game";
 
@@ -75,11 +75,10 @@ public class Game {
         // Delay ensures focus works
         SwingUtilities.invokeLater(() -> gamePanel.requestFocusInWindow());
 
-        //start the simulation
-        startSimulationLoop();
+        
     }
 
-    private void startSimulationLoop() {
+    public void startSimulationLoop() {
                                         //1 sec
         simulationTimer = new Timer(1000, new ActionListener() {
             @Override
@@ -87,10 +86,11 @@ public class Game {
                 tickCounter++; //records seconds passed
                 
                 updateStatsFromGrid();
-                updateHappiness();
-                if (tickCounter % 2 == 0){ // every 2 seconds
+                
+                if (tickCounter % 3 == 0){ // every 2 seconds
                     updatePopulationFluctuation();
                     updatePollution();
+                    updateHappiness();
                 }  
                 if (tickCounter % 5 == 0){ // every 5 seconds
                     updateMoney();  
@@ -166,7 +166,7 @@ public class Game {
     
     private void updateHappiness(){
         if (population + extraPopulation > 0)
-        changeExtraHappiness((int)(Math.random()*10 - 5));
+        changeExtraHappiness((int)(Math.random()*6 - 3));
     }
 
     private void updateMoney(){
@@ -174,7 +174,7 @@ public class Game {
     }
 
     private void updatePollution(){
-        addExtraPollution((int)(population*0.5));
+        addExtraPollution((int)(population*0.25));
     }
 
     private void checkGameOver() {
@@ -184,6 +184,7 @@ public class Game {
             simulationTimer.stop();
             System.out.println("Game over");
             f.switchToCard("End");
+            GameEndScreen.status.setText("Game Over!");
             if (pollution+extraPollution >= 100){
                 f.setGameOverReason("There was too much pollution");
                 System.out.println(getPollution() + getExtraPowerSupply());

@@ -52,6 +52,8 @@ public class Menu extends javax.swing.JPanel{
             public void actionPerformed(ActionEvent e) {
                 // start the game
                 f.switchToCard("Game");
+                //start the simulation
+                f.getG().startSimulationLoop();
             }
         });
 
@@ -69,7 +71,7 @@ public class Menu extends javax.swing.JPanel{
         instructionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // change to the instructions panel
-                System.out.println("Button clicked!");
+                f.switchToCard("Instruction");
             }
         });
 

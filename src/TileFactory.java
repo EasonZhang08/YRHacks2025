@@ -5,9 +5,9 @@ public class TileFactory {
                 return new Building(row, col);
             case "Park":
                 return new Park(row, col);
-            case "PowerSolar":
+            case "SolarPanel":
                 return new SolarPower(row, col);  
-            case "PowerFossil":
+            case "FossilPower":
                 return new FossilPower(row, col); 
             case "Restaurant":
                 return new Restaurant(row, col);

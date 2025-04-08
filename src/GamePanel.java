@@ -1,10 +1,10 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 public class GamePanel extends JPanel implements MouseListener {
     private GridManager gridManager;
-    private String selectedType = "PowerSolar"; // Default
+    private String selectedType = "SolarPower"; // Default
 
     public GamePanel(Game g) {
         setFocusable(true);
@@ -13,8 +13,8 @@ public class GamePanel extends JPanel implements MouseListener {
         addMouseListener(this);
 
         // Key bindings to change selected tile type
-        bindKey("1", "PowerSolar", g);
-        bindKey("2", "PowerFossil", g);
+        bindKey("1", "SolarPanel", g);
+        bindKey("2", "FossilPower", g);
         bindKey("3", "Building", g);
         bindKey("4", "Park", g);
         bindKey("5", "Restaurant", g);
